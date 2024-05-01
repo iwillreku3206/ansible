@@ -2,7 +2,7 @@
   replace:
     path: /etc/pacman.conf
     regexp: '^#?ParallelDownloads = 5$'
-    replace: 'ParallelDownloads = 5'
+    replace: 'ParallelDownloads = 16'
 - name: Enable multilib repository (1)
   replace:
     path: /etc/pacman.conf

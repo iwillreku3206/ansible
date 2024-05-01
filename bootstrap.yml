@@ -1,0 +1,6 @@
+- hosts: localhost
+  vars:
+    username: "rek"
+  tasks:
+    - include_tasks: 
+        file: playbooks/install.yml

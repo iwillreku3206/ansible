@@ -59,7 +59,7 @@
     name: go
 
 - name: Install yay
-  aur:
+  kewlfft.aur.aur:
     name: yay-bin
     use: makepkg
     state: present

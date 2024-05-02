@@ -2,7 +2,7 @@
 
 if [ -f /etc/arch-release ]
 then
-  sudo pacman --no-confirm -Sy ansible ansible-core
+  sudo pacman --noconfirm -Sy ansible ansible-core
 fi
 
 if [ -f /etc/debian_version ]

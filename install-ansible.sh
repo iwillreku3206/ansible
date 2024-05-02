@@ -2,12 +2,12 @@
 
 if [ -f /etc/arch-release ]
 then
-  sudo pacman -Sy ansible ansible-core
+  sudo pacman --no-confirm -Sy ansible ansible-core
 fi
 
 if [ -f /etc/debian_version ]
 then
-  sudo apt-get install ansible
+  sudo apt-get install -y ansible
 fi
 
 if [ $(uname) == "Darwin" ]

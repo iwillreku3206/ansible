@@ -1,0 +1,15 @@
+- name: Create docker group
+  group:
+    name: docker
+- name: Create libvirt group
+  group:
+    name: libvirt
+- name: Create kvm group
+  group:
+    name: kvm
+- name: Create wheel group
+  group:
+    name: wheel
+- name: Create uinput group
+  group:
+    name: uinput

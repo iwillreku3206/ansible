@@ -64,7 +64,7 @@
     use: makepkg
     state: present
   become: yes
-  become_user: aur_builder
+  become_user: "{{ username }}"
 
 - name: Enable SSH
   ansible.builtin.systemd_service:

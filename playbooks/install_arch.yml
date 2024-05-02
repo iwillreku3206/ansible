@@ -45,6 +45,10 @@
       - zip
       - zsh
 
+- name: Create groups
+  include_tasks:
+    file: linux_setup_groups.yml
+
 - name: Create user account
   include_tasks:
     file: linux_setup_user.yml

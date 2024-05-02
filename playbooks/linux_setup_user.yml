@@ -1,0 +1,13 @@
+- name: Create User
+  user:
+    name: "{{ username }}"
+    create_home: true
+    generate_ssh_key: true
+    groups: ['docker', 'libvirt', 'kvm', 'wheel', 'uinput']
+    shell: "/usr/bin/zsh"
+    password: "{{ password }}"
+
+- name: Create XDG directories
+  command: xdg-user-dirs-update
+  become: true
+  become_user: "{{ username }}"

@@ -3,4 +3,5 @@
     username: "rek"
   tasks:
     - include_tasks: 
+        file: playbooks/test.yml
         file: playbooks/install.yml

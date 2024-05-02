@@ -1,0 +1,22 @@
+- name: Install golang
+  pacman:
+    name:
+      - go
+
+- name: Clone `yay` repo
+  git:
+    repo: https://aur.archlinux.org/yay
+    dest: /tmp/yay
+
+- name: Set permissions on yay directory
+  file:
+    path: /tmp/yay
+    state: directory
+    recurse: yes
+    mode: '0777'
+
+- name: Build `yay` as user nobody
+  sudo:
+    become_user: nobody
+    become_flags: 
+

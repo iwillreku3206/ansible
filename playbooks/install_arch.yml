@@ -1,0 +1,56 @@
+- name: Enable parallel downloads
+  replace:
+    path: /etc/pacman.conf
+    regexp: '^#?ParallelDownloads = 5$'
+    replace: 'ParallelDownloads = 16'
+
+- name: Enable multilib repository (1)
+  replace:
+    path: /etc/pacman.conf
+    regexp: '^#?\[multilib\]$\n^#?Include = /etc/pacman.d/mirrorlist$'
+    replace: '[multilib]\nInclude = /etc/pacman.d/mirrorlist'
+
+- name: Update pacman database
+  pacman:
+    update_cache: true
+
+- name: Install system utilities
+  pacman:
+    name: 
+      - base-devel
+      - dos2unix
+      - gptfdisk
+      - htop
+      - imagemagick
+      - jq
+      - lsof
+      - man-pages
+      - man-db
+      - neofetch
+      - nmap
+      - openssh
+      - pacman-mirrorlist
+      - perf
+      - ranger
+      - ripgrep
+      - rsync
+      - tmux
+      - unzip
+      - usbutils
+      - vim
+      - whois
+      - xdg-user-dirs
+      - yq
+      - yt-dlp
+      - zip
+      - zsh
+
+- name: Create user account
+  include_tasks:
+    file: linux_setup_user.yml
+
+- name: Enable SSH
+  ansible.builtin.systemd_service:
+    name: sshd
+    enabled: true
+    masked: no

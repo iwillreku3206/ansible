@@ -18,4 +18,4 @@ then
 fi
 
 ansible-galaxy collection install kewlfft.aur
-ansible-playbook --ask-become-pass bootstrap.yml
+ansible-playbook --ask-vault-pass -e @vars.yml bootstrap.yml

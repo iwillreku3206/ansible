@@ -1,0 +1,15 @@
+- name: Enable wheel group
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/1-enable-wheel
+    line: '%wheel ALL=(ALL:ALL) NOPASSWD: ALL'
+    create: yes
+    mode: 0644
+    validate: 'visudo -cf %s'
+
+- name: Enable password prompt
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/2-password-prompt
+    line: 'Defaults env_reset, pwfeedback'
+    create: yes
+    mode: 0644
+    validate: 'visudo -cf %s'

@@ -46,12 +46,25 @@
       - zsh
 
 - name: Create groups
-  include_tasks:
-    file: linux_setup_groups.yml
+  include_tasks: linux_setup_groups.yml
 
 - name: Create user account
-  include_tasks:
-    file: linux_setup_user.yml
+  include_tasks: linux_setup_user.yml
+
+- name: Modify sudoers file to enable `wheel` and add password prompt
+  include_tasks: arch_edit_sudoers.yml
+
+- name: Install golang (for yay)
+  pacman:
+    name: go
+
+- name: Install yay
+  aur:
+    name: yay-bin
+    use: makepkg
+    state: present
+  become: yes
+  become_user: aur_builder
 
 - name: Enable SSH
   ansible.builtin.systemd_service:

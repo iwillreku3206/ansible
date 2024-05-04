@@ -77,6 +77,8 @@
       - rofi
       - ly
       - kitty
+  become: yes
+  become_user: "{{ username }}"
 
 - name: Install GPU drivers
   include_tasks: arch_install_gpudriver.yml
@@ -91,6 +93,8 @@
       - onlyoffice-bin
       - steam
       - gromit-mpx
+  become: yes
+  become_user: "{{ username }}"
 
 - name: Enable ly
   ansible.builtin.systemd_service:

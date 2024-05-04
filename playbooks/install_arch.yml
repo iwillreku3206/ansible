@@ -66,6 +66,37 @@
   become: yes
   become_user: "{{ username }}"
 
+- name: Install i3 and other supporting programs
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - xorg
+      - i3
+      - picom
+      - polybar
+      - rofi
+      - ly
+      - kitty
+
+- name: Install GPU drivers
+
+- name: Install common applications
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - firefox-developer-edition
+      - ungoogled-chromium-bin
+      - discord
+      - onlyoffice-bin
+      - steam
+      - gromit-mpx
+
+- name: Enable ly
+  ansible.builtin.systemd_service:
+    name: ly
+    enabled: true
+    masked: no
+
 - name: Enable SSH
   ansible.builtin.systemd_service:
     name: sshd

@@ -13,3 +13,4 @@
     create: yes
     mode: 0644
     validate: 'visudo -cf %s'
+

@@ -1,0 +1,45 @@
+- name: "Install AMD driver"
+  pacman:
+    name:
+      - "xf86-video-amdgpu"
+      - "mesa"
+      - "lib32-mesa"
+      - "vulkan-radeon"
+      - "lib32-vulkan-radeon"
+  when: "GPU_DRIVER == 'amd'"
+
+- name: "Install NVIDIA driver"
+  pacman:
+    name:
+      - "nvidia"
+      - "nvidia-utils"
+      - "lib32-nvidia-utils"
+      - "nvidia-settings"
+  when: "GPU_DRIVER == 'nvidia'"
+
+- name: "Install Intel driver"
+  pacman:
+    name:
+      - "xf86-video-intel"
+      - "mesa"
+      - "lib32-mesa"
+      - "vulkan-intel"
+      - "lib32-vulkan-intel"
+  when: "GPU_DRIVER == 'intel'"
+
+- name: "Install QXL driver"
+  pacman:
+    name:
+      - "xf86-video-qxl"
+      - "mesa"
+      - "lib32-mesa"
+  when: "GPU_DRIVER == 'qxl'"
+
+- name: "Install VMWare driver"
+  pacman:
+    name:
+      - "xf86-video-vmware"
+      - "xf86-input-vmmouse"
+      - "mesa"
+      - "lib32-mesa"
+  when: "GPU_DRIVER == 'vmware'"

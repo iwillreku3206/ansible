@@ -79,6 +79,7 @@
       - kitty
 
 - name: Install GPU drivers
+  include_tasks: arch_install_gpudriver.yml
 
 - name: Install common applications
   kewlfft.aur.aur:

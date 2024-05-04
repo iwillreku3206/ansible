@@ -22,13 +22,11 @@ fi
 if [ $(uname) == "Linux" ]
 then
   export GPU_DRIVER=$(
-    dialog --title "GPU Driver" --menu "Please select a GPU driver:" 15 40 4 1 Intel 2 AMD 3 NVIDIA 4 None
+    dialog --no-tags --clear --title "GPU Driver" --menu "Please select a GPU driver:" 15 40 4 intel Intel amd AMD nvidia NVIDIA none None 2>&1 >/dev/tty
   )
 fi
-
-echo Driver: $GPU_DRIVER
 
 read -n1 -r -p "Press any key to continue..." key
 
 ansible-galaxy collection install kewlfft.aur
-ansible-playbook --ask-vault-pass -e @vars.yml bootstrap.yml
+ansible-playbook --ask-vault-pass -e gpu_driver=$GPU_DRIVER -e @vars.yml bootstrap.yml

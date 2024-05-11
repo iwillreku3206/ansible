@@ -17,8 +17,12 @@
 - name: Install system utilities
   pacman:
     name: 
+      - archlinux-keyring
+      - ascii
       - base-devel
       - dos2unix
+      - fzf
+      - gnupg
       - gptfdisk
       - htop
       - imagemagick
@@ -34,6 +38,8 @@
       - ranger
       - ripgrep
       - rsync
+      - samba
+      - stow
       - tmux
       - unzip
       - usbutils
@@ -77,11 +83,68 @@
       - rofi
       - ly
       - kitty
+      - pipewire
+      - pipewire-pulse
+      - lib32-pipewire
+      - pipewire-audio
+      - pavucontrol
+      - arandr
+      - qt6ct
+      - qt6gtk2
+      - qt5ct
+      - qt5-styleplugins
+
   become: yes
   become_user: "{{ username }}"
 
 - name: Install GPU drivers
   include_tasks: arch_install_gpudriver.yml
+
+- name: Install development tools
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - python-pip
+      - cc65
+      - dotnet-sdk
+      - aspnet-runtime
+      - dart
+      - flutter-bin
+      - godot-mono-bin
+      - jdk-openjdk
+      - jdk17-openjdk
+      - jdk8-openjdk
+      - lua
+      - luajit
+      - rustup
+      - aws-cli-v2
+      - github-cli
+      - cmake
+      - ninja
+      - gnome-keyring
+      - act
+      - docker
+      - composer
+      - dbeaver
+      - emscripten
+      - gdb
+      - gradle
+      - hyperfine
+      - insomnium-bin
+      - jd-gui
+      - lldb
+      - luarocks
+      - mingw-w64-gcc
+      - nasm
+      - ngrok
+      - php
+      - postgresql
+      - sqlite
+      - valgrind
+      - websocat
+
+  become: yes
+  become_user: "{{ username }}"
 
 - name: Install common applications
   kewlfft.aur.aur:
@@ -91,10 +154,120 @@
       - ungoogled-chromium-bin
       - discord
       - onlyoffice-bin
-      - steam
       - gromit-mpx
+      - blender
+      - discord
+      - feishin-bin
+      - obs-studio-liberty
+      - figlet
+      - filelight
+      - fzf
+      - gparted
+      - inkscape
+      - krita
+      - logisim-evolution-bin
+      - lxappearance
+      - mpv
+      - nbtexplorer-bin
+      - psensor
+      - qalculate-gtk
+      - qbittorrent
+      - pfetch-rs-bin
+      - ristretto
+      - thunar
+      - scrcpy
+      - screenkey
+      - tailscale
+      - thunderbird
+      - tor
+      - weylus-bin
   become: yes
   become_user: "{{ username }}"
+
+- name: Install QEMU/KVM
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - qemu-desktop
+      - libvirt
+      - virt-manager
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Install Fonts
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - otf-openmoji
+      - otf-stix
+      - ttf-font-awesome
+      - ttf-material-icons-git
+      - ttf-ms-win10-auto
+      - ttf-nerd-fonts-symbols
+      - ttf-nerd-fonts-symbols-common
+      - ttf-victor-mono-nerd
+    become: yes
+    become_user: "{{ username }}"
+
+- name: Install CUPS
+  pacman:
+    name:
+      - cups
+      - cups-pdf
+  when: "CUPS_INSTALL == 'yes'"
+
+- name: Install Wine
+  pacman:
+    name:
+      - wine
+      - wine-gecko
+      - wine-mono
+      - winetricks
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Install Games
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - steam
+      - tetrio-plus-bin
+      - prismlauncher-qt5-bin
+      - osu-lazer-bin
+      - fceux
+      - retroarch-assets-xmb
+      - retroarch-assets-ozone
+      - libretro
+      - dolphin-emu
+      - flameshot
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Enable CUPS
+  ansible.builtin.systemd_service:
+    name: cups
+    enabled: true
+    masked: no
+  when: "CUPS_INSTALL == 'yes'"
+
+- name: Enable libvirt
+  ansible.builtin.systemd_service:
+    name: libvirtd
+    enabled: true
+    masked: no
+
+- name: Enable pipewire
+  shell:
+    cmd: "systemctl --user enable --now pipewire pipewire-pulse"
+    executable: /bin/bash
+    become: yes
+    become_user: "{{ username }}"
+
+- name: Enable ly
+  ansible.builtin.systemd_service:
+    name: docker
+    enabled: true
+    masked: no
 
 - name: Enable ly
   ansible.builtin.systemd_service:

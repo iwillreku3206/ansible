@@ -15,6 +15,7 @@
       - "nvidia-utils"
       - "lib32-nvidia-utils"
       - "nvidia-settings"
+      - "cuda"
   when: "GPU_DRIVER == 'nvidia'"
 
 - name: "Install Intel driver"

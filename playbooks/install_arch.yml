@@ -108,7 +108,6 @@
       - cc65
       - dotnet-sdk
       - aspnet-runtime
-      - dart
       - flutter-bin
       - godot-mono-bin
       - jdk-openjdk

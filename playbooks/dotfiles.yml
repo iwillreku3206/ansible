@@ -1,1 +1,3 @@
 - name: Stow common directories
+  shell: echo $HOME
+  

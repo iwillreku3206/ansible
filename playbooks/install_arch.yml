@@ -142,7 +142,7 @@
       - sqlite
       - valgrind
       - websocat
-
+      - fnm-bin
   become: yes
   become_user: "{{ username }}"
 
